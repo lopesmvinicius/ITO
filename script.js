@@ -247,21 +247,45 @@ startButton.addEventListener("click", () => {
 });
 
 // Evento de clique no botão "Próximo Número"
+let showingNumber = false; // Variável de controle
+
 nextButton.addEventListener("click", () => {
     if (currentPlayerIndex < playersNumbers.length) {
-        // Exibe o número sorteado puro (0 a 100)
-        numberTextElement.textContent = playersNumbers[currentPlayerIndex];
         
-        currentPlayerIndex++;
-        
-        if (currentPlayerIndex === playersNumbers.length) {
-            nextButton.textContent = "Mostrar Assunto";
+        if (!showingNumber) {
+            // ESTADO: ESCONDIDO (Preparando para o próximo jogador)
+            numberTextElement.textContent = "Vez do Jogador " + (currentPlayerIndex + 1);
+            numberTextElement.style.color = "#7f8c8d"; // Cor cinza para o aviso
+            nextButton.textContent = "Ver meu número";
+            showingNumber = true;
+        } else {
+            // ESTADO: REVELADO (Mostrando o número sorteado)
+            numberTextElement.textContent = playersNumbers[currentPlayerIndex];
+            numberTextElement.style.color = "var(--primary-color)"; // Volta para o verde
+            
+            currentPlayerIndex++;
+            showingNumber = false;
+
+            if (currentPlayerIndex === playersNumbers.length) {
+                nextButton.textContent = "Mostrar Assunto da Rodada";
+            } else {
+                nextButton.textContent = "Entregar para o Próximo";
+            }
         }
 
     } else {
+        // Todos os números foram mostrados
         showScreen(themeScreen);
         showTheme();
     }
+});
+
+// Resetar a variável de controle na Nova Rodada
+newRoundButton.addEventListener("click", () => {
+    showScreen(setupScreen);
+    playersNumbers = [];
+    currentPlayerIndex = 0;
+    showingNumber = false; // Reset aqui também
 });
 
 // Evento de clique no botão "Nova Rodada"
@@ -289,4 +313,5 @@ function showTheme() {
     themeTextElement.textContent = randomTheme;
 
 }
+
 
