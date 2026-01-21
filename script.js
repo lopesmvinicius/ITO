@@ -249,7 +249,7 @@ startButton.addEventListener("click", () => {
 // Evento de clique no botão "Próximo Número"
 nextButton.addEventListener("click", () => {
     if (currentPlayerIndex < playersNumbers.length) {
-        // ... (seu código para mostrar o número e atualizar o índice)
+        // Exibe o número sorteado puro (0 a 100)
         numberTextElement.textContent = playersNumbers[currentPlayerIndex];
         
         currentPlayerIndex++;
@@ -259,8 +259,7 @@ nextButton.addEventListener("click", () => {
         }
 
     } else {
-        // Todos os números foram mostrados, agora é a vez do tema
-        showScreen(themeScreen); // Chama a função para mostrar a tela de tema
+        showScreen(themeScreen);
         showTheme();
     }
 });
@@ -290,3 +289,4 @@ function showTheme() {
     themeTextElement.textContent = randomTheme;
 
 }
+
